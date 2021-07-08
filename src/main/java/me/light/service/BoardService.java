@@ -3,6 +3,7 @@ package me.light.service;
 import java.util.List;
 
 import me.light.domain.BoardVO;
+import me.light.domain.Criteria;
 
 public interface BoardService {
 	
@@ -14,6 +15,7 @@ public interface BoardService {
 	
 	boolean remove(Long bno); 
 	
-	List<BoardVO> getList();
+	List<BoardVO> getList(Criteria cri);
 	
+	public int getTotal(Criteria cri); 
 }

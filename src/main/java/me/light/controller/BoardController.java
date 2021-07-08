@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import me.light.domain.BoardVO;
+import me.light.domain.Criteria;
+import me.light.domain.PageDTO;
 import me.light.service.BoardService;
 
 @Controller
@@ -19,38 +21,45 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
-		model.addAttribute("list",service.getList()); 
+	public void list(Model model,Criteria cri, String category) {
+		cri.setCategory(category);
+		model.addAttribute("list",service.getList(cri)); 
+		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
 	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		service.register(board);
-		rttr.addFlashAttribute("register",board.getBno()); 
-		return "redirect:/board/list"; 
+		rttr.addFlashAttribute("register",board.getBno());
+		String cateName = "cateName="+board.getCateName(); 
+		String category = "category="+board.getCategory(); 
+		return "redirect:/board/list?"+category;
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(Long bno, Model model) {
 		 model.addAttribute("board", service.get(bno)); 
 	}
-	
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("modify",board.getBno());
 		}
-		return "redirect:/board/list";
+		String category = "category="+board.getCategory();
+		return "redirect:/board/list?"+category;
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno, RedirectAttributes rttr) {
+	public String remove(Long bno,String category, RedirectAttributes rttr) {
 		if(service.remove(bno)) {
 			rttr.addFlashAttribute("modify",bno);
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/list?category="+category;
 	}
+	
+	@GetMapping("/register")
+	public void register() {}
 	
 }

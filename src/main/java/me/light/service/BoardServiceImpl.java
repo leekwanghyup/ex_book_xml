@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import me.light.domain.BoardVO;
+import me.light.domain.Criteria;
 import me.light.mapper.BoardMapper;
 
 @Service
@@ -36,7 +37,13 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getList() {
-		return mapper.getList();
+	public List<BoardVO> getList( Criteria cri) {
+		return mapper.getList(cri); 
 	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
+	}
+	
 }
