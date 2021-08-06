@@ -29,10 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
     	select * from (
     		select 
-    		rownum rn, bno, title, content, writer, regdate, updatedate, category, catename  
+    		rownum rn, bno, title, content, writer, regdate, updatedate, category, catename, replycnt  
    		from (
 	        select /*+ INDEX_DESC(tbl_board pk_board) */ 
-	        	bno, title, content, writer, regdate, updatedate, category, catename
+	        	bno, title, content, writer, regdate, updatedate, category, catename, replycnt
 	        	from tbl_board where category= #{category} and bno>0
 	    	) where 
     	]]>	
@@ -86,5 +86,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			category = #{category} and bno > 0 
 		]]>
 	</select>
+	
 
 </mapper>

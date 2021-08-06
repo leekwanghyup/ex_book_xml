@@ -7,68 +7,67 @@
 <!-- 데이터 -->
 <input type="hidden" value="${param.category}" id="category">
 
-<div class="row my-3">
-	<div class="col-sm-8">	
-		<form id="searchForm" action="/board/list" method="get" class="form-inline">
-			<select name="type" class="form-control">
-				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected':''}"/>>-------</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/> >제목</option>
-				<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/> >내용</option>
-				<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected':''}"/> >작성자</option>
-				<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/> >제목 or 내용 </option>
-				<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected':''}"/> >제목 or 작성자</option>
-				<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected':''}"/>>제목 or 작성자 or 내용</option>
-			</select>
-			<input type='text' name='keyword' class='form-control' >
+
+<span id="board_cate"></span>
+
+<div class="row margin-top-50">
+	<div class="col-sm-8">
+		<form id="searchForm" action="/board/list" method="get"
+			class="form-inline">
+			<select name="type" class="form-control search">
+				<option value=""
+					<c:out value="${pageMaker.cri.type == null ? 'selected':''}"/>>-------</option>
+				<option value="T"
+					<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+				<option value="C"
+					<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
+				<option value="W"
+					<c:out value="${pageMaker.cri.type eq 'W' ? 'selected':''}"/>>작성자</option>
+				<option value="TC"
+					<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
+					or 내용</option>
+				<option value="TW"
+					<c:out value="${pageMaker.cri.type eq 'TW' ? 'selected':''}"/>>제목
+					or 작성자</option>
+				<option value="TWC"
+					<c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected':''}"/>>제목
+					or 작성자 or 내용</option>
+			</select> <input type='text' name='keyword' class='form-control keyword' placeholder="검색어를 입력하세요."> 
 			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 			<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
-			<input type="hidden" name='category' value="${param.category}" >
-			<button class="btn btn-default">검색</button>
+			<input type="hidden" name='category' value="${param.category}">
+			<button class="btn searchBtn">검색</button>
 		</form>
 	</div>
 	<div class="col-sm-4">
-		<a href="#" class="btn btn-primary pull-right" id="writeForm">글쓰기</a>
-		<a class="btn btn-default pull-right">새로고침</a>
+		<a href="#" class="btn pull-right" id="writeForm">글쓰기</a>
+		<a class="btn pull-right">새로고침</a>
 	</div>
 </div>
 
-<div class="row">
+<div class="row my-5">
 	<input type="hidden" value="free" />
 	<div class="col-sm-12">
-		<div class="panel panel-info">
-			<div class="panel-heading csHeading">
-				<span id="board_cate"></span>
-
-			</div>
-			<div class="panel-body">
-				<table class="table table-hover table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>수정일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-					<c:forEach items="${list}" var="board">
-						<tr>
-							<td>${board.bno}</td>
-							<td><a href="/board/get?bno=${board.bno}">${board.title}</a></td>
-							<td>${board.writer}</td>
-							<td><fmt:formatDate value="${board.regDate}"
-									pattern="yyyy-MM-dd HH:mm" /></td>
-							<td><fmt:formatDate value="${board.updateDate}"
-									pattern="yyyy-MM-dd HH:mm" /></td>
-							<td>000</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</div>
+		<c:forEach items="${list}" var="board">
+			<ul class="board_list">
+				<li>
+					<b><a href="/board/get?bno=${board.bno}" style="color:#99bbff ">[${board.title}]</a></b>
+					<span class="pull-right">${board.writer}</span> 
+				</li>
+				<li>
+					<a href="/board/get?bno=${board.bno}" >${board.content}</a>
+					<span class="pull-right">
+						<fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm" />
+					</span>
+				</li>
+			</ul>
+		</c:forEach>
 	</div>
+	<!-- col -->
 </div>
+<!-- row -->
+
+
 <div class="row pageNav">
 	<ul class="pagination">
 		<li class="paginate_button"><a href="1">처음으로</a></li>
@@ -94,7 +93,8 @@
 	<form action="/board/list" id="actionForm" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}" />
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}" />
-		<input type="hidden" name="category" value="${param.category}" >
+		<input type="hidden" name="category" value="${param.category}">
+		<input type="hidden" id="cateName" name="cateName" >
 	</form>
 </div>
 
@@ -125,34 +125,36 @@
 			let cateName = "cateName=" + $('#cateName').val()
 			location.href = "/board/register?" + category + "&" + cateName;
 		})
-		
+
 		// 페이지네비게이션 
-		$(".paginate_button a").on("click",function(e){
-			let $actionForm = $('#actionForm'); 
-		    e.preventDefault();
-		    console.log('click');
-		    $actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		    $actionForm.submit(); 
-		});
-		
+		$(".paginate_button a").on(
+				"click",
+				function(e) {
+					let $actionForm = $('#actionForm');
+					e.preventDefault();
+					console.log('click');
+					$actionForm.find("input[name='pageNum']").val(
+							$(this).attr("href"));
+					$actionForm.submit();
+				});
+
 		// 검색 
 		let $searchForm = $('#searchForm');
-		$("#searchForm button").on("click",function(e){
+		$("#searchForm button").on("click", function(e) {
 			e.preventDefault();
-			if(!$searchForm.find("option:selected").val()){
+			if (!$searchForm.find("option:selected").val()) {
 				alert('검색종류를 선택하세요');
-				return false; 
+				return false;
 			}
-			
-			if(!$searchForm.find("input[name='keyword']").val()){
+
+			if (!$searchForm.find("input[name='keyword']").val()) {
 				alert('키워드를 입력하세요');
-				return false; 
+				return false;
 			}
 			$searchForm.find("input[name='pageNum']").val("1");
 			//let category = $('#category').val();
-			
-			
-			searchForm.submit(); 
+
+			searchForm.submit();
 		});
 	})
 </script>

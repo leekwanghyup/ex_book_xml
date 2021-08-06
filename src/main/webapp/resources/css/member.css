@@ -1,0 +1,51 @@
+/*회원가입*/
+.form_inner{
+    width: 450px;
+    margin: 0 auto;
+    color : #d4d4d4;
+}
+.control-label{
+    margin-top: 20px;
+}
+.form_inner .btn{
+    width: 450px;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: transparent;
+    font-size: 18px;
+    border : 1px solid #a2a2a2;
+}
+.form_inner .form-control{
+	background-color: transparent; 
+}
+/*로그인*/
+.signIn_wrap{
+    width: 500px;
+    margin: 0 auto;    
+    color : #d4d4d4;
+}
+.signIn_wrap .h3{
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+.signIn_wrap label{
+    padding: 15px 0;
+    font-size: 20px;
+}
+.signIn_wrap .sign_input{
+    padding: 22px;
+}
+.signIn_wrap .form-control{
+	background-color: transparent;
+	border-color : #a2a2a2;
+} 
+
+.signIn_wrap .btn{
+    width: 500px;
+    padding: 15px;
+    background-color: transparent;
+    display: block;
+    margin: 0 auto;
+    border : 1px solid #a2a2a2; 
+}

@@ -4,14 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import lombok.Setter;
 import me.light.domain.Criteria;
 import me.light.domain.ReplyVO;
+import me.light.mapper.BoardMapper;
 import me.light.mapper.ReplyMapper;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{
 
+	@Setter(onMethod_ = @Autowired )
+	private BoardMapper boardMapper; 
+	
 	@Autowired
 	private ReplyMapper mapper;
 	
@@ -39,4 +45,5 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyVO> getList(Criteria cri, Long bno) {
 		return mapper.replyList(cri, bno);
 	}
+	
 }

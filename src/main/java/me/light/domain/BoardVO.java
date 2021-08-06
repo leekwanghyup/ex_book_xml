@@ -14,4 +14,5 @@ public class BoardVO {
 	private Date updateDate;
 	private String category; 
 	private String cateName; 
+	private int replyCnt; 
 }

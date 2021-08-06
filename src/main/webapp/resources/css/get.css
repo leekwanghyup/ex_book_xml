@@ -1,9 +1,51 @@
+.getBtn{
+	background-color:transparent;
+	border: 1px solid #a2a2a2;
+	color : #9a9caa;
+	width : 66px; 
+	border-radius : 0; 
+}
+
+.get_title h4{
+	font-size : 35px;
+	color : #fff; 
+}
+.get_head,
+.get_body,
+.get_tail{
+	font-size:20px; color: #9a9caa;
+}
+.get_head {
+	display: flex;
+	justify-content: space-between;
+	border-bottom : 1px solid #a2a2a2;
+}
+.get_body {
+	padding : 40px 0;
+	min-height : 500px;
+}
+.get_tail {
+	padding : 20px 0; 
+}
 .custom-flex{
     display: flex;
     justify-content: flex-end;
 }
-.custom-flex div{margin-left: 40px;}
-.title{
-    margin-bottom: 20px;
+.custom-flex div { 
+	padding : 0 0 0 40px;
+	align-self: center;
 }
 .content{ margin: 0 20px;}
+
+/*댓글 작성폼*/
+.replyWriteForm {font-size:20px; color: #a2a2a2;}
+.replyWriteForm textarea {
+	background-color : transparent; 
+}
+
+/*댓글 리스트*/
+.chat { background-color:transparent;}
+.chat .list-group-item {background-color: transparent;}
+.chat .getBtn { padding: 7px 18px;}
+.chat li { border : 0; border-bottom: 1px solid #a2a2a2; color: #d4d4d4; font-size:16px;}
+.chat img { margin-right : 5px;}

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ include file="../includes/header.jsp" %>
-	
+
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header"> 글쓰기 </h1>
@@ -26,9 +27,11 @@
 					</div>
 					<div class="form-group">					
 						<label>writer</label>
-						<input type="text" name="writer" class="form-control">
+						<input type="text" name="writer" class="form-control" 
+						value='<sec:authentication property="principal.username"/>' readonly="readonly">
 					</div>
 					<button type="submit" class="btn bnt-default">확인</button>
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				</form>
 			</div>
 		</div>

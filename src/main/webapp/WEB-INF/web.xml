@@ -5,9 +5,12 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security-context.xml
+		</param-value>
 	</context-param>
-
+	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -20,6 +23,13 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<multipart-config>
+			<location>D:\\upload\\temp</location>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>20971520</file-size-threshold>
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>
@@ -27,6 +37,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 한글필터 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -43,5 +54,17 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<!-- 스프링시큐리티 필터 -->
+	<!-- 
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 	-->
+	
 </web-app>

@@ -1,8 +1,10 @@
 package me.light.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,5 +24,16 @@ public class HomeController {
 		model.addAttribute("strategy",service.getListWith("strategy"));
 		model.addAttribute("qna",service.getListWith("qna"));
 		return "home";
+	}
+
+	@GetMapping("/accessError")
+	public void accessDenined() {
+		System.out.println("dddddd"); 
+	}
+	
+	
+	@GetMapping("/customLogout")
+	public String logoutPage() {
+		 return "/member/logout";
 	}
 }
